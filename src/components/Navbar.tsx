@@ -35,11 +35,11 @@ export default function Navbar({
           
           {/* Brand Logo Section */}
           <div className="flex items-center justify-between">
-            <img
-              src="/logo.png"
-              alt="Itqan English"
-              className="h-12 w-auto object-contain"
-            />
+          <img
+  src={`${import.meta.env.BASE_URL}logo.png`}
+  alt="Itqan English"
+  className="h-12 w-auto object-contain"
+/>
 
             {/* Quick Stats & Reset on Mobile & Small Screens */}
             <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
