@@ -6,6 +6,7 @@ export interface Word {
   partOfSpeech: 'noun' | 'verb' | 'adj' | 'adv' | 'pronoun' | 'prep' | 'other';
   example: string;
   exampleArabic: string;
+  level?: 'A1' | 'A2' | 'B1' | 'B2';
 }
 
 export interface Category {
