@@ -38,51 +38,9 @@ export default function Navbar({
           {/* Brand Logo Section */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              {/* High-fidelity SVG of the brand icon based on PDF slides */}
+              {/* Logo Image */}
               <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
-                <svg
-                  viewBox="0 0 100 100"
-                  className="w-10 h-10 transform -rotate-6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Periwinkle brand background loop path */}
-                  <path
-                    d="M30 45 C 20 20, 80 15, 75 45 C 70 70, 30 80, 45 90 C 55 95, 75 90, 80 75"
-                    stroke="#84a5f2"
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity="0.6"
-                  />
-                  {/* Deep Blue brand primary path */}
-                  <path
-                    d="M25 55 C 15 35, 65 30, 60 55 C 55 75, 25 70, 35 90"
-                    stroke="#214ecf"
-                    strokeWidth="10"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                  {/* Two Orange diamond dots (ت dots) from the logo slides */}
-                  <rect
-                    x="56"
-                    y="42"
-                    width="10"
-                    height="10"
-                    transform="rotate(45 56 42)"
-                    fill="#ea9835"
-                    rx="1"
-                  />
-                  <rect
-                    x="68"
-                    y="50"
-                    width="10"
-                    height="10"
-                    transform="rotate(45 68 50)"
-                    fill="#ea9835"
-                    rx="1"
-                  />
-                </svg>
+                <img src="logo.png" alt="شعار إتقان إنجليش" className="w-10 h-10 object-contain" />
               </div>
 
               {/* Text Part of Logo */}
