@@ -5,6 +5,7 @@ import WordCard from "./components/WordCard";
 import QuizSection from "./components/QuizSection";
 import StoryGenerator from "./components/StoryGenerator";
 import AITutorChat from "./components/AITutorChat";
+import StudyCalendar from "./components/StudyCalendar";
 import { categories } from "./data/words";
 import { Word, Category } from "./types";
 import { Sparkles, Flame, Award, HelpCircle, Trophy, BookOpen, HeartHandshake } from "lucide-react";
@@ -19,6 +20,7 @@ export default function App() {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [selectedWordCategory, setSelectedWordCategory] = useState<string>("");
   const [activeQuizCategory, setActiveQuizCategory] = useState<Category | null>(null);
+  const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
 
   // Load user progress from LocalStorage
   useEffect(() => {
@@ -124,6 +126,7 @@ export default function App() {
         xp={xp}
         streak={streak}
         onResetCourse={handleResetCourse}
+        onOpenCalendar={() => setIsCalendarOpen(true)}
       />
 
       {/* Main Course Content Container */}
@@ -215,6 +218,13 @@ export default function App() {
         )}
 
       </main>
+
+      {/* Popup Study Calendar Modal */}
+      {isCalendarOpen && (
+        <StudyCalendar
+          onClose={() => setIsCalendarOpen(false)}
+        />
+      )}
 
       {/* Persistent overlay Word Explorer Details Card Drawer */}
       {selectedWord && (
