@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Award, Flame, BookOpen, MessageSquare, Sparkles, RotateCcw, AlertTriangle, X } from "lucide-react";
+import { Award, Flame, BookOpen, MessageSquare, Sparkles, RotateCcw, AlertTriangle, X, Calendar } from "lucide-react";
 
 interface NavbarProps {
   currentTab: string;
@@ -9,6 +9,7 @@ interface NavbarProps {
   xp: number;
   streak: number;
   onResetCourse: () => void;
+  onOpenCalendar: () => void;
 }
 
 export default function Navbar({
@@ -19,6 +20,7 @@ export default function Navbar({
   xp,
   streak,
   onResetCourse,
+  onOpenCalendar,
 }: NavbarProps) {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const percentage = totalWords > 0 ? Math.round((masteredCount / totalWords) * 100) : 0;
@@ -35,14 +37,74 @@ export default function Navbar({
           
           {/* Brand Logo Section */}
           <div className="flex items-center justify-between">
-          <img
-  src={`${import.meta.env.BASE_URL}logo.png`}
-  alt="Itqan English"
-  className="h-12 w-auto object-contain"
-/>
+            <div className="flex items-center gap-3">
+              {/* High-fidelity SVG of the brand icon based on PDF slides */}
+              <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="w-10 h-10 transform -rotate-6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Periwinkle brand background loop path */}
+                  <path
+                    d="M30 45 C 20 20, 80 15, 75 45 C 70 70, 30 80, 45 90 C 55 95, 75 90, 80 75"
+                    stroke="#84a5f2"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.6"
+                  />
+                  {/* Deep Blue brand primary path */}
+                  <path
+                    d="M25 55 C 15 35, 65 30, 60 55 C 55 75, 25 70, 35 90"
+                    stroke="#214ecf"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  {/* Two Orange diamond dots (ت dots) from the logo slides */}
+                  <rect
+                    x="56"
+                    y="42"
+                    width="10"
+                    height="10"
+                    transform="rotate(45 56 42)"
+                    fill="#ea9835"
+                    rx="1"
+                  />
+                  <rect
+                    x="68"
+                    y="50"
+                    width="10"
+                    height="10"
+                    transform="rotate(45 68 50)"
+                    fill="#ea9835"
+                    rx="1"
+                  />
+                </svg>
+              </div>
 
-            {/* Quick Stats & Reset on Mobile & Small Screens */}
+              {/* Text Part of Logo */}
+              <div className="flex flex-col select-none">
+                <span className="font-sans font-bold text-2xl tracking-tight text-slate-900 flex items-center gap-1">
+                  إتقان
+                  <span className="text-brand-blue text-lg font-extrabold tracking-widest font-english">ENGLISH</span>
+                </span>
+                <span className="text-[10px] text-slate-400 font-medium font-sans">منصة ذكية للناطقين باللغة العربية</span>
+              </div>
+            </div>
+
+            {/* Quick Stats, Calendar & Reset on Mobile & Small Screens */}
             <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+              <button
+                id="btn-calendar-mobile"
+                onClick={onOpenCalendar}
+                title="فتح تقويم الممارسة والملاحظات"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 hover:bg-blue-100 text-brand-blue border border-blue-200/60 shadow-xs transition-all cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+              </button>
               <button
                 id="btn-reset-course-mobile"
                 onClick={() => setShowResetConfirm(true)}
@@ -104,6 +166,16 @@ export default function Navbar({
             >
               <MessageSquare className="w-4 h-4" />
               <span>معلم إتقان الذكي</span>
+            </button>
+
+            <button
+              id="tab-calendar"
+              onClick={onOpenCalendar}
+              title="فتح تقويم الممارسة والملاحظات"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg font-sans text-sm font-bold transition-all whitespace-nowrap cursor-pointer text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            >
+              <Calendar className="w-4 h-4 text-brand-blue" />
+              <span>التقويم</span>
             </button>
           </nav>
 
@@ -169,6 +241,17 @@ export default function Navbar({
                 {masteredCount} من {totalWords}
               </span>
             </div>
+
+            {/* Calendar Button */}
+            <button
+              id="btn-calendar-desktop"
+              onClick={onOpenCalendar}
+              title="فتح تقويم الممارسة والملاحظات"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer shadow-xs bg-blue-50 text-brand-blue hover:bg-blue-100 border border-blue-200/60"
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>التقويم</span>
+            </button>
 
             {/* Reset Course Button */}
             <button
