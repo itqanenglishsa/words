@@ -39,9 +39,7 @@ export default function Navbar({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               {/* Logo Image */}
-              <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
-                <img src="logo.png" alt="Logo" className="w-10 h-10 object-contain" />
-              </div>
+              <img src="logo.png" alt="Logo" className="w-12 h-12 object-contain rounded-xl bg-slate-50 p-1" />
 
               {/* Text Part of Logo */}
               <div className="flex flex-col select-none">
