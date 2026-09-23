@@ -85,12 +85,15 @@ export default function WordCard({
         
         {/* Modal Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-50 bg-slate-50/50">
-          <div>
+          <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-brand-blue bg-blue-50 px-3 py-1 rounded-full font-sans">
               قسم: {categoryName}
             </span>
-            <span className="text-xs font-bold text-slate-400 mr-2 font-english uppercase">
+            <span className="text-xs font-bold text-slate-400 font-english uppercase">
               {word.partOfSpeech}
+            </span>
+            <span className="text-brand-blue text-xs font-bold font-english">
+              {word.level || "A1"}
             </span>
           </div>
           <button 
@@ -126,6 +129,9 @@ export default function WordCard({
             <div className="inline-flex items-center gap-2 bg-white border border-slate-100 px-4 py-2 rounded-xl text-xs font-bold text-slate-500">
               <span>اللفظ التقريبي بالخط العربي:</span>
               <span className="text-slate-800 font-sans">{word.pronunciation}</span>
+              <span className="text-brand-blue text-xs font-bold font-english mr-1">
+                {word.level || "A1"}
+              </span>
             </div>
           </div>
 
