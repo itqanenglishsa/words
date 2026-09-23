@@ -74,8 +74,11 @@ export default function CourseMap({
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "unstudied" | "mastered">("all");
+  const [levelFilter, setLevelFilter] = useState<string>("all");
 
-  // Global search across all A1 words
+  const levelOrder: Record<string, number> = { A1: 1, A2: 2, B1: 3, B2: 4 };
+
+  // Global search across all words
   const handleGlobalSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setSearchTerm(val);
@@ -88,23 +91,33 @@ export default function CourseMap({
     }
   };
 
-  // Filtered and prioritized list of words (either global or within selected category)
+  // Filtered and prioritized list of words (sorted from A1 to B2)
   const getFilteredWords = () => {
     const listSource = selectedCategory ? selectedCategory.words : categories.flatMap(c => c.words);
     
     let words = listSource;
     if (searchTerm.trim() !== "") {
-      // Prioritize exact matches (e.g. "an" -> "An") and prefixes, excluding unrelated words
+      // Prioritize exact matches (e.g. "an" -> "An") and prefixes
       words = searchAndRankWords(listSource, searchTerm);
     }
 
-    return words.filter(w => {
+    const filtered = words.filter(w => {
       const isMastered = masteredWords.includes(w.id);
-      return (
+      const matchesMastery =
         filterType === "all" ||
         (filterType === "mastered" && isMastered) ||
-        (filterType === "unstudied" && !isMastered)
-      );
+        (filterType === "unstudied" && !isMastered);
+      const matchesLevel =
+        levelFilter === "all" || (w.level || "A1") === levelFilter;
+
+      return matchesMastery && matchesLevel;
+    });
+
+    // Order display of section contents based on level starting from A1 to B2
+    return [...filtered].sort((a, b) => {
+      const rankA = levelOrder[a.level || "A1"] || 1;
+      const rankB = levelOrder[b.level || "A1"] || 1;
+      return rankA - rankB;
     });
   };
 
@@ -171,32 +184,58 @@ export default function CourseMap({
             )}
           </div>
 
-          {/* Tab Filter Button */}
-          <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 w-full sm:w-auto overflow-x-auto gap-1">
-            <button
-              onClick={() => setFilterType("all")}
-              className={`px-4 py-2 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap ${
-                filterType === "all" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              الكل
-            </button>
-            <button
-              onClick={() => setFilterType("unstudied")}
-              className={`px-4 py-2 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap ${
-                filterType === "unstudied" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              غير مدروسة
-            </button>
-            <button
-              onClick={() => setFilterType("mastered")}
-              className={`px-4 py-2 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap ${
-                filterType === "mastered" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              متقنة ({masteredWords.length})
-            </button>
+          {/* Filters Row */}
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            {/* Status Filter */}
+            <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 overflow-x-auto gap-1">
+              <button
+                onClick={() => setFilterType("all")}
+                className={`px-3 py-1.5 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  filterType === "all" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                الكل
+              </button>
+              <button
+                onClick={() => setFilterType("unstudied")}
+                className={`px-3 py-1.5 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  filterType === "unstudied" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                غير مدروسة
+              </button>
+              <button
+                onClick={() => setFilterType("mastered")}
+                className={`px-3 py-1.5 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  filterType === "mastered" ? "bg-white text-slate-900 shadow-xs" : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                متقنة ({masteredWords.length})
+              </button>
+            </div>
+
+            {/* Level Filter */}
+            <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 overflow-x-auto gap-1">
+              {[
+                { id: "all", label: "جميع المستويات" },
+                { id: "A1", label: "A1" },
+                { id: "A2", label: "A2" },
+                { id: "B1", label: "B1" },
+                { id: "B2", label: "B2" },
+              ].map((lvl) => (
+                <button
+                  key={lvl.id}
+                  onClick={() => setLevelFilter(lvl.id)}
+                  className={`px-2.5 py-1.5 rounded-lg font-sans text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    levelFilter === lvl.id
+                      ? "bg-brand-blue text-white shadow-xs"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                >
+                  {lvl.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -273,6 +312,7 @@ export default function CourseMap({
                 onClick={() => {
                   setSelectedCategory(null);
                   setSearchTerm("");
+                  setLevelFilter("all");
                 }}
                 className="flex items-center gap-1.5 text-slate-600 hover:text-brand-blue text-sm font-bold transition-all bg-white px-4 py-2 rounded-xl border border-slate-200 cursor-pointer"
               >
@@ -282,12 +322,12 @@ export default function CourseMap({
 
               {selectedCategory && (
                 <div className="text-xs font-extrabold text-slate-500">
-                  عرض {filteredWords.length} كلمة من أصل {selectedCategory.words.length} في قسم "{selectedCategory.nameAr}"
+                  عرض {filteredWords.length} كلمة (مرتبة من A1 إلى B2) في قسم "{selectedCategory.nameAr}"
                 </div>
               )}
               {!selectedCategory && searchTerm.trim() !== "" && (
                 <div className="text-xs font-extrabold text-slate-500">
-                  نتائج البحث: تم العثور على {filteredWords.length} كلمة مطابقة لـ "{searchTerm}"
+                  نتائج البحث: تم العثور على {filteredWords.length} كلمة مطابقة لـ "{searchTerm}" (مرتبة حسب المستوى)
                 </div>
               )}
             </div>
@@ -326,9 +366,14 @@ export default function CourseMap({
                           </span>
                         </div>
 
-                        {/* Pronunciation phonetics */}
-                        <div className="bg-slate-100 text-slate-600 font-sans text-xs font-bold px-2.5 py-1 rounded-lg">
-                          {word.pronunciation}
+                        {/* Pronunciation phonetics & Level */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-brand-blue text-xs font-bold font-english">
+                            {word.level || "A1"}
+                          </span>
+                          <div className="bg-slate-100 text-slate-600 font-sans text-xs font-bold px-2.5 py-1 rounded-lg">
+                            {word.pronunciation}
+                          </div>
                         </div>
                       </div>
 
@@ -371,6 +416,7 @@ export default function CourseMap({
                 onClick={() => {
                   setSearchTerm("");
                   setFilterType("all");
+                  setLevelFilter("all");
                   setSelectedCategory(null);
                 }}
                 className="mt-6 bg-brand-blue text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-blue-700 transition-all cursor-pointer"
