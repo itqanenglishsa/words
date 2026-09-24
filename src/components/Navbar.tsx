@@ -35,11 +35,16 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-3.5 sm:py-4 gap-3 sm:gap-4">
           
-          {/* Brand Logo Section (Replaced completely with logo.png) */}
+          {/* Brand Logo Section */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
+              {/* تم حذف الكود السابق بالكامل واستبداله بـ logo.png */}
               <a href="#" className="flex items-center">
-                <img src="logo.png" alt="إتقان إنجليش" className="h-12 w-auto object-contain select-none" />
+                <img 
+                  src="logo.png" 
+                  alt="Logo" 
+                  className="h-12 w-auto object-contain cursor-pointer"
+                />
               </a>
             </div>
 
