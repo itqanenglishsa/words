@@ -35,65 +35,12 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-3.5 sm:py-4 gap-3 sm:gap-4">
           
-          {/* Brand Logo Section */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {/* Logo Image */}
-              <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden p-1">
-                <img src="logo.png" alt="شعار إتقان إنجليش" className="w-full h-full object-contain" />
-              </div>
-
-              {/* Text Part of Logo */}
-              <div className="flex flex-col select-none">
-                <span className="font-sans font-bold text-2xl tracking-tight text-slate-900 flex items-center gap-1">
-                  إتقان
-                  <span className="text-brand-blue text-lg font-extrabold tracking-widest font-english">ENGLISH</span>
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium font-sans">منصة ذكية للناطقين باللغة العربية</span>
-              </div>
-            </div>
-
-            {/* Quick Stats, Calendar & Reset on Mobile & Small Screens */}
-            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
-              <button
-                id="btn-calendar-mobile"
-                onClick={onOpenCalendar}
-                title="فتح تقويم الممارسة والملاحظات"
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 hover:bg-blue-100 text-brand-blue border border-blue-200/60 shadow-xs transition-all cursor-pointer"
-              >
-                <Calendar className="w-4 h-4" />
-              </button>
-              <button
-                id="btn-reset-course-mobile"
-                onClick={() => setShowResetConfirm(true)}
-                title="إعادة بدء الدورة وتصفير التقدم"
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-xs transition-all cursor-pointer"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-              <div className="flex items-center gap-1 bg-amber-50 border border-amber-100/60 text-brand-orange px-2 py-1 rounded-lg text-xs font-bold">
-                <Flame className="w-4 h-4 fill-brand-orange" />
-                <span>{streak}</span>
-              </div>
-              <div className="flex items-center gap-1 bg-blue-50 border border-blue-100/60 text-brand-blue px-2 py-1 rounded-lg text-xs font-bold">
-                <Award className="w-4 h-4" />
-                <span>{xp} XP</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Tabs */}
-          <nav 
-            id="main-nav-tabs"
-            className="flex items-center bg-slate-50 p-1.5 rounded-xl border border-slate-100 gap-1 overflow-x-auto"
-          >
-            <button
-              id="tab-course-map"
-              onClick={() => setCurrentTab("course")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-sans text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
-                currentTab === "course"
-                  ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+        {/* Logo */}
+<img
+  src="logo.png"
+  alt="شعار إتقان إنجليش"
+  className="w-16 h-16 object-contain"
+/>
               }`}
             >
               <BookOpen className="w-4 h-4" />
