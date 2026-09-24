@@ -35,64 +35,12 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-3.5 sm:py-4 gap-3 sm:gap-4">
           
-          {/* Brand Logo Section */}
+          {/* Brand Logo Section (Replaced completely with logo.png) */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              {/* High-fidelity SVG of the brand icon based on PDF slides */}
-              <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
-                <svg
-                  viewBox="0 0 100 100"
-                  className="w-10 h-10 transform -rotate-6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Periwinkle brand background loop path */}
-                  <path
-                    d="M30 45 C 20 20, 80 15, 75 45 C 70 70, 30 80, 45 90 C 55 95, 75 90, 80 75"
-                    stroke="#84a5f2"
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity="0.6"
-                  />
-                  {/* Deep Blue brand primary path */}
-                  <path
-                    d="M25 55 C 15 35, 65 30, 60 55 C 55 75, 25 70, 35 90"
-                    stroke="#214ecf"
-                    strokeWidth="10"
-                    strokeLinecap="round"
-                    fill="none"
-                  />
-                  {/* Two Orange diamond dots (ت dots) from the logo slides */}
-                  <rect
-                    x="56"
-                    y="42"
-                    width="10"
-                    height="10"
-                    transform="rotate(45 56 42)"
-                    fill="#ea9835"
-                    rx="1"
-                  />
-                  <rect
-                    x="68"
-                    y="50"
-                    width="10"
-                    height="10"
-                    transform="rotate(45 68 50)"
-                    fill="#ea9835"
-                    rx="1"
-                  />
-                </svg>
-              </div>
-
-              {/* Text Part of Logo */}
-              <div className="flex flex-col select-none">
-                <span className="font-sans font-bold text-2xl tracking-tight text-slate-900 flex items-center gap-1">
-                  إتقان
-                  <span className="text-brand-blue text-lg font-extrabold tracking-widest font-english">ENGLISH</span>
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium font-sans">منصة ذكية للناطقين باللغة العربية</span>
-              </div>
+              <a href="#" className="flex items-center">
+                <img src="logo.png" alt="إتقان إنجليش" className="h-12 w-auto object-contain select-none" />
+              </a>
             </div>
 
             {/* Quick Stats, Calendar & Reset on Mobile & Small Screens */}
