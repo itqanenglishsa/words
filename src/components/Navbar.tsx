@@ -35,12 +35,107 @@ export default function Navbar({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-3.5 sm:py-4 gap-3 sm:gap-4">
           
-        {/* Logo */}
-<img
-  src="logo.png"
-  alt="شعار إتقان إنجليش"
-  className="w-16 h-16 object-contain"
-/>
+          {/* Brand Logo Section */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {/* High-fidelity SVG of the brand icon based on PDF slides */}
+              <div className="relative w-12 h-12 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
+                <svg
+                  viewBox="0 0 100 100"
+                  className="w-10 h-10 transform -rotate-6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {/* Periwinkle brand background loop path */}
+                  <path
+                    d="M30 45 C 20 20, 80 15, 75 45 C 70 70, 30 80, 45 90 C 55 95, 75 90, 80 75"
+                    stroke="#84a5f2"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.6"
+                  />
+                  {/* Deep Blue brand primary path */}
+                  <path
+                    d="M25 55 C 15 35, 65 30, 60 55 C 55 75, 25 70, 35 90"
+                    stroke="#214ecf"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  {/* Two Orange diamond dots (ت dots) from the logo slides */}
+                  <rect
+                    x="56"
+                    y="42"
+                    width="10"
+                    height="10"
+                    transform="rotate(45 56 42)"
+                    fill="#ea9835"
+                    rx="1"
+                  />
+                  <rect
+                    x="68"
+                    y="50"
+                    width="10"
+                    height="10"
+                    transform="rotate(45 68 50)"
+                    fill="#ea9835"
+                    rx="1"
+                  />
+                </svg>
+              </div>
+
+              {/* Text Part of Logo */}
+              <div className="flex flex-col select-none">
+                <span className="font-sans font-bold text-2xl tracking-tight text-slate-900 flex items-center gap-1">
+                  إتقان
+                  <span className="text-brand-blue text-lg font-extrabold tracking-widest font-english">ENGLISH</span>
+                </span>
+                <span className="text-[10px] text-slate-400 font-medium font-sans">منصة ذكية للناطقين باللغة العربية</span>
+              </div>
+            </div>
+
+            {/* Quick Stats, Calendar & Reset on Mobile & Small Screens */}
+            <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+              <button
+                id="btn-calendar-mobile"
+                onClick={onOpenCalendar}
+                title="فتح تقويم الممارسة والملاحظات"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 hover:bg-blue-100 text-brand-blue border border-blue-200/60 shadow-xs transition-all cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+              </button>
+              <button
+                id="btn-reset-course-mobile"
+                onClick={() => setShowResetConfirm(true)}
+                title="إعادة بدء الدورة وتصفير التقدم"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-xs transition-all cursor-pointer"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+              <div className="flex items-center gap-1 bg-amber-50 border border-amber-100/60 text-brand-orange px-2 py-1 rounded-lg text-xs font-bold">
+                <Flame className="w-4 h-4 fill-brand-orange" />
+                <span>{streak}</span>
+              </div>
+              <div className="flex items-center gap-1 bg-blue-50 border border-blue-100/60 text-brand-blue px-2 py-1 rounded-lg text-xs font-bold">
+                <Award className="w-4 h-4" />
+                <span>{xp} XP</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Tabs */}
+          <nav 
+            id="main-nav-tabs"
+            className="flex items-center bg-slate-50 p-1.5 rounded-xl border border-slate-100 gap-1 overflow-x-auto"
+          >
+            <button
+              id="tab-course-map"
+              onClick={() => setCurrentTab("course")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-sans text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
+                currentTab === "course"
+                  ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/20"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
               <BookOpen className="w-4 h-4" />
